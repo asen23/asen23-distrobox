@@ -1,9 +1,11 @@
-FROM ghcr.io/ublue-os/arch-distrobox
+FROM ghcr.io/ublue-os/arch-distrobox as arch-distrobox
 
 LABEL com.github.containers.toolbox="true" \
       usage="This image is meant to be used with the toolbox or distrobox command" \
       summary="Personal asen23 distrobox" \
       maintainer="asen23"
+
+FROM arch-distrobox AS arch-work-distrobox
 
 # Create build user
 RUN useradd -m --shell=/bin/bash build && usermod -L build && \
