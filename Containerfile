@@ -7,6 +7,15 @@ LABEL com.github.containers.toolbox="true" \
 
 FROM arch-distrobox AS arch-work-distrobox
 
+# Install packages
+RUN pacman -S \
+        zsh \
+        chezmoi \
+        --noconfirm
+
+# Change default shell
+RUN sed -i '/^SHELL/s/\/usr\/bin\/bash/\/bin\/zsh/' /etc/default/useradd
+
 # Create build user
 RUN useradd -m --shell=/bin/bash build && usermod -L build && \
     echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
