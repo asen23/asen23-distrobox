@@ -5,6 +5,9 @@ LABEL com.github.containers.toolbox="true" \
       summary="Personal asen23 distrobox" \
       maintainer="asen23"
 
+# Update packages
+RUN pacman -Syu
+
 # Install packages
 RUN pacman -S \
         zsh \
