@@ -5,8 +5,6 @@ LABEL com.github.containers.toolbox="true" \
       summary="Personal asen23 distrobox" \
       maintainer="asen23"
 
-FROM arch-distrobox AS arch-work-distrobox
-
 # Install packages
 RUN pacman -S \
         zsh \
@@ -15,6 +13,8 @@ RUN pacman -S \
 
 # Change default shell
 RUN sed -i '/^SHELL/s/\/usr\/bin\/bash/\/bin\/zsh/' /etc/default/useradd
+
+FROM arch-distrobox AS arch-work-distrobox
 
 # Create build user
 RUN useradd -m --shell=/bin/bash build && usermod -L build && \
