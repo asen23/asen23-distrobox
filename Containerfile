@@ -13,7 +13,9 @@ RUN dnf -y upgrade && \
 
 RUN sed -i '/^SHELL/s/\/bin\/bash/\/bin\/zsh/' /etc/default/useradd
 
-RUN rm /work-packages
+COPY ./.nobrew /etc/skel/.nobrew
+
+RUN rm /base-packages
 
 FROM base as work
 
