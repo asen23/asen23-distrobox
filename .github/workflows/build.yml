@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base_name: [arch-distrobox, arch-work-distrobox]
+        base_name: [base, work]
     steps:
       # Checkout push-to-registry action GitHub repository
       - name: Checkout Push to Registry action
