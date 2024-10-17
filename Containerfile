@@ -7,11 +7,20 @@ LABEL com.github.containers.toolbox="true" \
 
 COPY ./packages.base /base-packages
 
+RUN dnf copr enable atim/starship
+RUN dnf copr enable sramanujam/atuin
+
 RUN dnf -y upgrade && \
     dnf -y install $(<base-packages) && \
     dnf clean all
 
+RUN sh -c "$(curl -fsLS get.chezmoi.io)"
+
+# Change default shell to zsh
 RUN sed -i '/^SHELL/s/\/bin\/bash/\/bin\/zsh/' /etc/default/useradd
+
+# remove atuin bash integration to avoid error message
+RUN rm /etc/profile.d/atuin.sh
 
 COPY ./.nobrew /etc/skel/.nobrew
 
