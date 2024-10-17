@@ -7,8 +7,8 @@ LABEL com.github.containers.toolbox="true" \
 
 COPY ./packages.base /base-packages
 
-RUN dnf copr enable atim/starship
-RUN dnf copr enable sramanujam/atuin
+RUN dnf copr enable atim/starship -y
+RUN dnf copr enable sramanujam/atuin -y
 
 RUN dnf -y upgrade && \
     dnf -y install $(<base-packages) && \
