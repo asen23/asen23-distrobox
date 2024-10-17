@@ -1,40 +1,28 @@
-FROM ghcr.io/ublue-os/arch-distrobox as arch-distrobox
+FROM ghcr.io/ublue-os/fedora-toolbox as base
 
 LABEL com.github.containers.toolbox="true" \
       usage="This image is meant to be used with the toolbox or distrobox command" \
       summary="Personal asen23 distrobox" \
       maintainer="asen23"
 
-# Install packages
-RUN pacman -S \
-        zsh \
-        chezmoi \
-        --noconfirm
+COPY ./packages.base /base-packages
 
-# Change default shell
-RUN sed -i '/^SHELL/s/\/usr\/bin\/bash/\/bin\/zsh/' /etc/default/useradd
+RUN dnf -y upgrade && \
+    dnf -y install $(<base-packages) && \
+    dnf clean all
 
-FROM arch-distrobox AS arch-work-distrobox
+RUN sed -i '/^SHELL/s/\/bin\/bash/\/bin\/zsh/' /etc/default/useradd
 
-# Create build user
-RUN useradd -m --shell=/bin/bash build && usermod -L build && \
-    echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
-    echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN rm /work-packages
 
-# Install AUR packages
-USER build
-WORKDIR /home/build
-RUN paru -S \
-      aur/visual-studio-code-bin \
-      --noconfirm
-USER root
-WORKDIR /
+FROM base as work
 
-# Cleanup
-RUN userdel -r build && \
-    rm -drf /home/build && \
-    sed -i '/build ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
-    sed -i '/root ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
-    rm -rf \
-      /tmp/* \
-      /var/cache/pacman/pkg/*
+COPY ./packages.work /work-packages
+
+COPY ./repo/vscode.repo /etc/yum.repos.d/vscode.repo
+
+RUN dnf -y upgrade && \
+    dnf -y install $(<work-packages) && \
+    dnf clean all
+
+RUN rm /work-packages
