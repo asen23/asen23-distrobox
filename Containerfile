@@ -7,6 +7,8 @@ LABEL com.github.containers.toolbox="true" \
 
 COPY ./packages.base /base-packages
 
+COPY ./init.sh /etc/profile.d/init.sh
+
 RUN dnf copr enable atim/starship -y
 RUN dnf copr enable sramanujam/atuin -y
 
