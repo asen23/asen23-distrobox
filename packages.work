@@ -1,4 +1,5 @@
-java-21-openjdk
+java-17-openjdk
+java-17-openjdk-devel
 dotnet-runtime-6.0
 dotnet-sdk-6.0
 code
