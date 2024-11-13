@@ -16,8 +16,6 @@ RUN dnf -y upgrade && \
     dnf -y install $(<base-packages) && \
     dnf clean all
 
-RUN sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /bin
-
 # remove atuin bash integration to avoid error message
 RUN rm /etc/profile.d/atuin.sh
 
@@ -36,3 +34,13 @@ RUN dnf -y upgrade && \
     dnf clean all
 
 RUN rm /work-packages
+
+FROM ghcr.io/ublue-os/fedora-toolbox as app
+
+COPY ./packages.app /app-packages
+
+RUN dnf -y upgrade && \
+    dnf -y install $(<app-packages) && \
+    dnf clean all
+
+RUN rm /app-packages
