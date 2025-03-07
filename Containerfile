@@ -16,6 +16,13 @@ RUN dnf -y upgrade && \
     dnf -y install $(<base-packages) && \
     dnf clean all
 
+# install lazygit
+RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": *"v\K[^"]*') && \
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" && \
+    tar xf lazygit.tar.gz lazygit && \
+    install lazygit -D /usr/bin/lazygit && \
+    rm -f lazygit.tar.gz lazygit
+
 # remove atuin bash integration to avoid error message
 RUN rm /etc/profile.d/atuin.sh
 
