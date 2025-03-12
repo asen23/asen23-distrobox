@@ -4,6 +4,7 @@
     "devel",
     "direnv",
     "distrobox",
+    "javascriptcoregtk",
     "merkuro",
     "zoxide"
   ]
