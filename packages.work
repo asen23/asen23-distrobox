@@ -3,3 +3,7 @@ java-17-openjdk-devel
 dotnet-runtime-8.0
 dotnet-sdk-8.0
 code
+gcc
+gtk3-devel
+javascriptcoregtk4.1-devel
+webkit2gtk-4.1-devel
