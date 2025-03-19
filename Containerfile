@@ -23,6 +23,12 @@ RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygi
     install lazygit -D /usr/bin/lazygit && \
     rm -f lazygit.tar.gz lazygit
 
+RUN ZELLIJ_VERSION=$(curl -s "https://github.com/zellij-org/zellij/releases" | grep -Po '"tag_name": *"v\K[^"]*') && \
+    curl -Lo zellij.tar.gz "https://github.com/zellij-org/zellij/releases/download/v${ZELLIJ_VERSION}/zellij-x86_64-unknown-linux-musl.tar.gz" && \
+    tar xf zellij.tar.gz zellij && \
+    install zellij -D /usr/bin/zellij && \
+    rm -f zellij.tar.gz zellij
+
 # remove atuin bash integration to avoid error message
 RUN rm /etc/profile.d/atuin.sh
 
