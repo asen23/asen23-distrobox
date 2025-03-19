@@ -23,7 +23,7 @@ RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygi
     install lazygit -D /usr/bin/lazygit && \
     rm -f lazygit.tar.gz lazygit
 
-RUN ZELLIJ_VERSION=$(curl -s "https://github.com/zellij-org/zellij/releases" | grep -Po '"tag_name": *"v\K[^"]*') && \
+RUN ZELLIJ_VERSION=$(curl -s "https://api.github.com/repos/zellij-org/zellij/releases/latest" | grep -Po '"tag_name": *"v\K[^"]*') && \
     curl -Lo zellij.tar.gz "https://github.com/zellij-org/zellij/releases/download/v${ZELLIJ_VERSION}/zellij-x86_64-unknown-linux-musl.tar.gz" && \
     tar xf zellij.tar.gz zellij && \
     install zellij -D /usr/bin/zellij && \
