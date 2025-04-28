@@ -53,14 +53,3 @@ RUN dnf -y upgrade && \
     dnf clean all
 
 RUN rm /work-packages
-
-FROM ghcr.io/ublue-os/fedora-toolbox as app
-
-COPY ./packages.app /app-packages
-
-RUN dnf -y upgrade && \
-    dnf -y install $(<app-packages) && \
-    dnf -y install java-17-openjdk java-17-openjdk-devel --releasever=41 && \
-    dnf clean all
-
-RUN rm /app-packages
