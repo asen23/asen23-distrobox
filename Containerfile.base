@@ -1,4 +1,4 @@
-FROM ghcr.io/ublue-os/fedora-toolbox as base
+FROM ghcr.io/ublue-os/fedora-toolbox@sha256:83f5d00eb387df54bd73168ae9cf8c1a5e7aa30c6357c2eac6c9fc1ceb5e0898 as base
 
 LABEL com.github.containers.toolbox="true" \
       usage="This image is meant to be used with the toolbox or distrobox command" \
@@ -40,16 +40,3 @@ RUN EZA_VERSION=$(curl -s "https://api.github.com/repos/eza-community/eza/releas
 COPY ./.nobrew /etc/skel/.nobrew
 
 RUN rm /base-packages
-
-FROM base as work
-
-COPY ./packages.work /work-packages
-
-COPY ./repo/vscode.repo /etc/yum.repos.d/vscode.repo
-
-RUN dnf -y upgrade && \
-    dnf -y install $(<work-packages) && \
-    dnf -y install java-17-openjdk java-17-openjdk-devel --releasever=41 && \
-    dnf clean all
-
-RUN rm /work-packages
