@@ -33,7 +33,7 @@ RUN ZELLIJ_VERSION=$(curl -s "https://api.github.com/repos/zellij-org/zellij/rel
 # install eza
 RUN EZA_VERSION=$(curl -s "https://api.github.com/repos/eza-community/eza/releases/latest" | grep -Po '"tag_name": *"v\K[^"]*') && \
     curl -Lo eza.tar.gz "https://github.com/eza-community/eza/releases/download/v${EZA_VERSION}/eza_x86_64-unknown-linux-gnu.tar.gz" && \
-    tar xf eza.tar.gz eza && \
+    tar xf eza.tar.gz ./eza && \
     install eza -D /usr/bin/eza && \
     rm -f eza.tar.gz eza
 
