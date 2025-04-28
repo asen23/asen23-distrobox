@@ -37,9 +37,6 @@ RUN EZA_VERSION=$(curl -s "https://api.github.com/repos/eza-community/eza/releas
     install eza -D /usr/bin/eza && \
     rm -f eza.tar.gz eza
 
-# remove atuin bash integration to avoid error message
-RUN rm /etc/profile.d/atuin.sh
-
 COPY ./.nobrew /etc/skel/.nobrew
 
 RUN rm /base-packages
