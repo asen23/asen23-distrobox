@@ -1,0 +1,19 @@
+name: build-base
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+    paths:
+      - 'Containerfile.base'
+      - 'packages.base'
+
+jobs:
+  build-image:
+    name: Build Images
+    uses: ./.github/workflows/reusable-build.yml
+    secrets: inherit
+    with:
+      base_name: base
