@@ -6,8 +6,11 @@ on:
         description: "The base image name"
         required: true
         type: string
+      image_tag:
+        description: "The base image tag"
+        required: true
+        type: string
 env:
-  IMAGE_TAGS: latest
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
 jobs:
@@ -45,7 +48,7 @@ jobs:
           containerfiles: |
             ./Containerfile.${{ env.IMAGE_NAME }}
           image: ${{ env.IMAGE_NAME }}
-          tags: ${{ env.IMAGE_TAGS }}
+          tags: ${{ inputs.image_tag }}
           labels: ${{ steps.meta.outputs.labels }}
           oci: false
           extra-args: |

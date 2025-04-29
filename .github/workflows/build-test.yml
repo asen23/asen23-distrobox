@@ -1,17 +1,11 @@
-name: build-base
+name: build-test
 on:
   pull_request:
     branches:
       - main
-    paths:
-      - 'Containerfile.base'
-      - 'packages.base'
-  push:
-    branches:
-      - main
-    paths:
-      - 'Containerfile.base'
-      - 'packages.base'
+    paths-ignore:
+      - '**/*.md'
+      - '**/.vscode/**'
 
 permissions:
   contents: read
@@ -23,5 +17,10 @@ jobs:
     name: Build Images
     uses: ./.github/workflows/reusable-build.yml
     secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        image: [base, work]
     with:
-      base_name: base
+      base_name: ${{ matrix.image }}
+      image_tag: test

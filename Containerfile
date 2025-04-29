@@ -40,3 +40,16 @@ RUN EZA_VERSION=$(curl -s "https://api.github.com/repos/eza-community/eza/releas
 COPY ./.nobrew /etc/skel/.nobrew
 
 RUN rm /base-packages
+
+FROM base as work
+
+COPY ./packages.work /work-packages
+
+COPY ./repo/vscode.repo /etc/yum.repos.d/vscode.repo
+
+RUN dnf -y upgrade && \
+    dnf -y install $(<work-packages) && \
+    dnf -y install java-17-openjdk java-17-openjdk-devel --releasever=41 && \
+    dnf clean all
+
+RUN rm /work-packages
