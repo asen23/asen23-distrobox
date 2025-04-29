@@ -1,4 +1,4 @@
-FROM ghcr.io/asen23/base@sha256:a67c2a161dc35c9f4e8d2027bb02bdeda3ec0e931e66cc4f790ff7239be6d6ea as work
+FROM ghcr.io/asen23/base@sha256:045f41fe600b6b11fc50e1689dc86c3d1dd11fa3999ac8b2bd08a2528ded0a9f as work
 
 COPY ./packages.work /work-packages
 
