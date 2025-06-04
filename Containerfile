@@ -47,10 +47,14 @@ COPY ./packages.work /work-packages
 
 COPY ./repo/vscode.repo /etc/yum.repos.d/vscode.repo
 
+RUN curl -Lo reactotron.rpm $(curl -L https://api.github.com/repos/infinitered/reactotron/releases | jq -r 'map(select((.assets | length) > 0)).[0].assets | map(select((.name | test("rpm")))).[0].browser_download_url')
+
 RUN dnf -y upgrade && \
     dnf -y install $(<work-packages) && \
     dnf -y install java-17-openjdk java-17-openjdk-devel --releasever=41 && \
     dnf -y install cracklib-dicts glibc-common && \
+    dnf -y install ./reactotron.rpm && \
     dnf clean all
 
+RUN rm -f reactotron.rpm
 RUN rm /work-packages
