@@ -55,5 +55,7 @@ RUN dnf -y upgrade && \
     dnf -y install ./reactotron.rpm && \
     dnf clean all
 
+RUN ln -s /usr/bin/distrobox-host-exec /usr/bin/emulator
+
 RUN rm -f reactotron.rpm
 RUN rm /work-packages
