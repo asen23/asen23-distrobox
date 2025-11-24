@@ -12,6 +12,11 @@ permissions:
   packages: write
   id-token: write
 
+concurrency:
+  # only run one build at a time
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   build-image:
     name: Build Images
