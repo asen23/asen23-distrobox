@@ -51,6 +51,7 @@ RUN curl -Lo reactotron.rpm $(curl -L https://api.github.com/repos/infinitered/r
 
 RUN dnf -y upgrade && \
     dnf -y install $(<work-packages) && \
+    dnf -y install java-17-openjdk java-17-openjdk-devel --releasever=41 && \
     dnf -y install ./reactotron.rpm && \
     dnf clean all
 
