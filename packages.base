@@ -11,3 +11,5 @@ fd-find
 helix
 jq
 script
+util-linux-script
+wget2-wget
