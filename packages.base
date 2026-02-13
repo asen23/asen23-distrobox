@@ -13,3 +13,5 @@ jq
 script
 util-linux-script
 wget2-wget
+cracklib-dicts
+glibc-common
