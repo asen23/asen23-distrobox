@@ -1,4 +1,4 @@
-FROM ghcr.io/ublue-os/fedora-toolbox@sha256:aa707cd9a5cb68dec2bce4890e1b0b56966187ab5a11146effaa8b55ccb62726 as base
+FROM ghcr.io/ublue-os/fedora-toolbox@sha256:f085178c71802a1029e6a2f0e05e3f8fea012979024757f381170c9f47bdb88b as base
 
 LABEL com.github.containers.toolbox="true" \
       usage="This image is meant to be used with the toolbox or distrobox command" \
