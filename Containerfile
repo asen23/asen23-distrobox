@@ -39,6 +39,8 @@ RUN EZA_VERSION=$(curl -s "https://api.github.com/repos/eza-community/eza/releas
 
 COPY ./.nobrew /etc/skel/.nobrew
 
+RUN touch /.containersetupdone
+
 RUN rm /base-packages
 
 FROM base as work
